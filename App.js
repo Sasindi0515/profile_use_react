@@ -1,11 +1,16 @@
+import { useState } from "react"; // ADDED: for the points state
 import {
     Image,
     StyleSheet,
     Text,
+    TouchableOpacity, // ADDED: for the + button
     View,
 } from "react-native";
 
 export default function App() {
+  // ADDED: State to make points interactive
+  const [points, setPoints] = useState(0);
+
   return (
     <View style={styles.container}>
 
@@ -47,10 +52,20 @@ export default function App() {
 
         <View style={styles.row}>
           <Text style={styles.star}>★</Text>
-          <Text style={styles.value}>0</Text>
+          {/* CHANGED: Replaced 0 with {points} */}
+          <Text style={styles.value}>{points}</Text>
         </View>
 
       </View>
+
+      {/* ADDED: Floating Action Button (FAB) to add points */}
+      <TouchableOpacity
+        style={styles.fab}
+        onPress={() => setPoints((prev) => prev + 1)}
+        activeOpacity={0.7}
+      >
+        <Text style={styles.fabText}>+</Text>
+      </TouchableOpacity>
 
     </View>
   );
@@ -150,5 +165,30 @@ const styles = StyleSheet.create({
   star: {
     fontSize: 18,
     marginRight: 7,
+  },
+
+  // ADDED: Styles for the Floating Action Button (FAB)
+  fab: {
+    position: "absolute",
+    right: 25,
+    bottom: 35,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "black",
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+  },
+
+  fabText: {
+    color: "white",
+    fontSize: 28,
+    fontWeight: "bold",
+    marginTop: -2,
   },
 });
